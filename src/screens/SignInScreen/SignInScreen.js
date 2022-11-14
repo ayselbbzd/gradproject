@@ -33,6 +33,7 @@ const SignInScreen = () => {
            />
         <Text style={styles.text}>Welcome back 👋</Text>
         <Text style={styles.welcome}>{"You've been missed!"}</Text>
+
            <CustomInput
                 placeholder="Username"
                 value={username}
