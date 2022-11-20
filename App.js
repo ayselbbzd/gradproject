@@ -19,7 +19,7 @@ import Navigation from './src/navigation';
 const App = () => {
   return (
     <SafeAreaView style={styles.root}>
-      <Navigation />
+      <Navigation/>
     </SafeAreaView>
   );
 };
@@ -27,7 +27,7 @@ const App = () => {
 const styles = StyleSheet.create({
   root: {
    flex: 1,
-   backgroundColor: '#F7F7F9',
+   backgroundColor: 'white',
   }
 });
 

@@ -5,16 +5,18 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import ForgotPasswordButton from '../../components/ForgotPasswordButton';
 import SignUpButton from '../../components/SignUpButton';
-
+import {useNavigation} from '@react-navigation/native';
 
 const SignInScreen = () => {
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
 
    const {height} =useWindowDimensions();
+   const navigation = useNavigation();
 
    const onSignInPressed = () => {
         console.warn("Sign in");
+        navigation.navigate('Home');
    }
 
    const onForgotPasswordPressed = () => {
@@ -22,7 +24,8 @@ const SignInScreen = () => {
    }
 
    const onSignUpPressed = () => {
-              console.warn("onSignUpPressed");
+           console.warn("onSignUpPressed");
+           navigation.navigate('SignUp');
    }
    return (
         <View style={styles.root}>
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
     root:{
         alignItems: 'center',
         padding: 20,
+        backgroundColor: 'white',
     },
     logo: {
         width: '30%',
