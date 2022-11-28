@@ -6,6 +6,8 @@ import CustomButton from '../../components/CustomButton';
 import ForgotPasswordButton from '../../components/ForgotPasswordButton';
 import SignUpButton from '../../components/SignUpButton';
 
+import {createUserWithEmailAndPassword, sendEmailVerification} from 'firebase/auth';
+import {auth} from '../../firebase-config'
 
 const SignUpScreen = () => {
    const [username, setUsername] = useState('');
@@ -23,8 +25,20 @@ const SignUpScreen = () => {
               console.warn("onSignUpPressed");
    }
 
-   const onRegisterPressed = () => {
-                 console.warn("onRegisterPressed");
+   const onRegisterPressed = async () => {
+              if(password != passwordRepeat){
+                                       console.warn("Make sure that your password is valid");
+              }
+              if (password == passwordRepeat){
+                  try{
+                              const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                              await sendEmailVerification(userCredential.user);
+                      }
+
+                     catch (error){
+                        console.warn(error.message);
+                      }
+                  }
       }
 
    const onAccountPressed = () => {
@@ -60,12 +74,14 @@ const SignUpScreen = () => {
 
            <CustomInput
                 placeholder="Password"
+                id = "password"
                 value={password}
                 setValue={setPassword}
                 secureTextEntry={true}/>
 
            <CustomInput
                  placeholder="Repeat password"
+                 id = "repeat_password"
                  value={passwordRepeat}
                  setValue={setPasswordRepeat}
                  secureTextEntry={true}/>

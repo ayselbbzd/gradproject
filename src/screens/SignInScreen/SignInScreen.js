@@ -7,16 +7,26 @@ import ForgotPasswordButton from '../../components/ForgotPasswordButton';
 import SignUpButton from '../../components/SignUpButton';
 import {useNavigation} from '@react-navigation/native';
 
+import { signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../../firebase-config'
+
 const SignInScreen = () => {
-   const [username, setUsername] = useState('');
+   const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
    const {height} =useWindowDimensions();
    const navigation = useNavigation();
 
-   const onSignInPressed = () => {
-        console.warn("Sign in");
-        navigation.navigate('Home');
+   const onSignInPressed = async () => {
+        try{
+              const user = await signInWithEmailAndPassword(auth, email, password);
+              navigation.navigate('Home');
+        }
+
+        catch (error){
+              console.warn(error.message);
+        }
+
    }
 
    const onForgotPasswordPressed = () => {
@@ -38,9 +48,9 @@ const SignInScreen = () => {
         <Text style={styles.welcome}>{"You've been missed!"}</Text>
 
            <CustomInput
-                placeholder="Username"
-                value={username}
-                setValue={setUsername}/>
+                placeholder="Email"
+                value={email}
+                setValue={setEmail}/>
            <CustomInput
                 placeholder="Password"
                 value={password}
